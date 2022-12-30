@@ -10,5 +10,5 @@ autoreconf -i
 ../aria2-x86_64-gnu-linux-config
 make
 strip --strip-all src/aria2c
-cp src/aria2c $HOME/final_build/
+cp src/aria2c $HOME/final_build/aria2c_x86_64
 ls -lahtr $HOME/final_build
