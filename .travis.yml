@@ -1,7 +1,0 @@
-sudo: false
-dist: jammy
-
-language: bash
-
-script:
-    - bash build_aria2.sh
