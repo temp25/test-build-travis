@@ -1,5 +1,8 @@
 #!/bin/bash
 
+CWD="$(pwd)"
+
+cd $HOME
 apt-get update
 apt install -y build-essential curl wget make git vim bash autoconf autopoint libtool pkg-config docutils
 git clone https://github.com/q3aql/aria2-static-builds.git
@@ -11,5 +14,8 @@ autoreconf -i
 ../aria2-x86_64-gnu-linux-config
 make
 strip --strip-all src/aria2c
+$HOME/final_build
 cp src/aria2c $HOME/final_build/
 ls -lahtr $HOME/final_build
+
+cd "${CWD}"
