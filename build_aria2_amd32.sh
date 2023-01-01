@@ -4,7 +4,7 @@ CWD="$(pwd)"
 TEMP_DIR="/tmp"
 
 apt-get update
-DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends ca-certificates build-essential curl wget make git vim bash autoconf autopoint libtool pkg-config libcppunit-dev zlib1g-dev sqlite3 libsqlite3-dev python3-docutils
+DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends ca-certificates build-essential curl wget make git vim bash autoconf automake autopoint libtool pkg-config libcppunit-dev zlib1g-dev sqlite3 libsqlite3-dev python3-docutils
 git clone https://github.com/q3aql/aria2-static-builds.git
 cd aria2-static-builds/build-scripts/gnu-linux-config
 git clone https://github.com/aria2/aria2.git
