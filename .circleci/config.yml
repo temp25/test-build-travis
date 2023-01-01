@@ -9,10 +9,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Build aria2 amd64"
+          name: "aria2 amd64 build"
           command: "bash build_aria2_amd64.sh"
       - store_artifacts:
-          path: /home/circleci/final_build/aria2c_amd64
+          path: /tmp/final_build/aria2c_amd64
           destination: aria2c_amd64
   build-aria2-amd32:
     docker:
@@ -20,15 +20,38 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Build aria2 amd32"
+          name: "aria2 amd32 build"
           command: "bash build_aria2_amd32.sh"
       - store_artifacts:
-          path: /home/circleci/final_build/aria2c_amd32
+          path: /tmp/final_build/aria2c_amd32
           destination: aria2c_amd32
+  build-aria2-mingw64:
+    docker:
+      - image: ubuntu:22.04
+    steps:
+      - checkout
+      - run:
+          name: "aria2 mingw64 build"
+          command: "bash build_aria2_mingw64.sh"
+      - store_artifacts:
+          path: /tmp/final_build/aria2c_mingw64.exe
+          destination: aria2c_mingw64.exe
+  build-aria2-mingw32:
+    docker:
+      - image: i386/ubuntu:18.04
+    steps:
+      - checkout
+      - run:
+          name: "aria2 mingw32 build"
+          command: "bash build_aria2_mingw32.sh"
+      - store_artifacts:
+          path: /tmp/final_build/aria2c_mingw32.exe
+          destination: aria2c_mingw32.exe
 
 workflows:
   build-aria2-workflow:
     jobs:
       - build-aria2-amd64
       - build-aria2-amd32
-
+      - build-aria2-mingw64
+      - build-aria2-mingw32
