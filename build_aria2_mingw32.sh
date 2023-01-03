@@ -13,6 +13,7 @@ sed -i -e 's|/usr/i686|/usr/bin/i686|g' aria2-i686-w64-mingw-build-libs
 sed -i -e 's|/usr/i686|/usr/bin/i686|g' aria2-i686-w64-mingw-config
 ./aria2-i686-w64-mingw-build-libs
 cd aria2
+cat NEWS | grep -m1 "" | awk "{print $2}" > /tmp/aria2.version
 autoreconf -i
 ../aria2-i686-w64-mingw-config
 make

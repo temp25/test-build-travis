@@ -1,57 +1,47 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
 jobs:
-  build-aria2-amd64:
+  build-aria2:
+    parameters:
+      dockerImage:
+        description: Docker image to be used to build
+        type: string
+      archType:
+        description: Architecture type for which the build is executed
+        type: string
+      artifactName:
+        description: Name of the final artifact generated
+        type: string
     docker:
-      - image: ubuntu:22.04
+      - image: << parameters.dockerImage >>
     steps:
       - checkout
       - run:
-          name: "aria2 amd64 build"
-          command: "bash build_aria2_amd64.sh"
+          name: aria2 << parameters.archType >> build
+          command: "bash build_aria2_<< parameters.archType >>.sh"
       - store_artifacts:
-          path: /tmp/final_build/aria2c_amd64
-          destination: aria2c_amd64
-  build-aria2-amd32:
-    docker:
-      - image: i386/ubuntu:18.04
-    steps:
-      - checkout
+          path: /tmp/final_build/<< parameters.artifactName >>
+          destination: << parameters.artifactName >>
       - run:
-          name: "aria2 amd32 build"
-          command: "bash build_aria2_amd32.sh"
-      - store_artifacts:
-          path: /tmp/final_build/aria2c_amd32
-          destination: aria2c_amd32
-  build-aria2-mingw64:
-    docker:
-      - image: ubuntu:22.04
-    steps:
-      - checkout
-      - run:
-          name: "aria2 mingw64 build"
-          command: "bash build_aria2_mingw64.sh"
-      - store_artifacts:
-          path: /tmp/final_build/aria2c_mingw64.exe
-          destination: aria2c_mingw64.exe
-  build-aria2-mingw32:
-    docker:
-      - image: i386/ubuntu:18.04
-    steps:
-      - checkout
-      - run:
-          name: "aria2 mingw32 build"
-          command: "bash build_aria2_mingw32.sh"
-      - store_artifacts:
-          path: /tmp/final_build/aria2c_mingw32.exe
-          destination: aria2c_mingw32.exe
+          name: Publishing aria2 build to cloudsmith repo
+          command: "bash cloudsmith_artifact_uploader.sh << parameters.artifactName >>"
 
 workflows:
   build-aria2-workflow:
     jobs:
-      - build-aria2-amd64
-      - build-aria2-amd32
-      - build-aria2-mingw64
-      - build-aria2-mingw32
+      - build-aria2: # Build for amd64 arch
+          dockerImage: ubuntu:22.04
+          archType: amd64
+          artifactName: aria2c_amd64
+      - build-aria2: # Build for amd32 arch
+          dockerImage: i386/ubuntu:18.04
+          archType: amd32
+          artifactName: aria2c_amd32
+      - build-aria2: # Build for mingw64 arch
+          dockerImage: ubuntu:22.04
+          archType: mingw64
+          artifactName: aria2c_mingw64.exe
+      - build-aria2: # Build for mingw32 arch
+          dockerImage: i386/ubuntu:18.04
+          archType: mingw32
+          artifactName: aria2c_mingw32.exe

@@ -10,6 +10,7 @@ cd aria2-static-builds/build-scripts/gnu-linux-config
 git clone https://github.com/aria2/aria2.git
 ./aria2-i386-gnu-linux-cross-build-libs
 cd aria2
+cat NEWS | grep -m1 "" | awk "{print $2}" > /tmp/aria2.version
 autoreconf -i
 ../aria2-i386-gnu-linux-cross-config
 make
