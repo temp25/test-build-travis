@@ -13,6 +13,11 @@ sed -i -e 's|/usr/i686|/usr/bin/i686|g' aria2-i686-w64-mingw-build-libs
 sed -i -e 's|/usr/i686|/usr/bin/i686|g' aria2-i686-w64-mingw-config
 ./aria2-i686-w64-mingw-build-libs
 cd aria2
+if [ ! -z "${ARIA2_TAG}" ]; then
+  echo "ARIA2_TAG environment variable is set. Checking out tag, ${ARIA2_TAG}"
+  git checkout "${ARIA2_TAG}"
+fi
+cat NEWS | grep -m1 "" | awk "{print $2}" > /tmp/aria2.version
 autoreconf -i
 ../aria2-i686-w64-mingw-config
 make

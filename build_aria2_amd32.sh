@@ -10,6 +10,11 @@ cd aria2-static-builds/build-scripts/gnu-linux-config
 git clone https://github.com/aria2/aria2.git
 ./aria2-i386-gnu-linux-cross-build-libs
 cd aria2
+if [ ! -z "${ARIA2_TAG}" ]; then
+  echo "ARIA2_TAG environment variable is set. Checking out tag, ${ARIA2_TAG}"
+  git checkout "${ARIA2_TAG}"
+fi
+cat NEWS | grep -m1 "" | awk "{print $2}" > /tmp/aria2.version
 autoreconf -i
 ../aria2-i386-gnu-linux-cross-config
 make
