@@ -33,15 +33,15 @@ workflows:
           dockerImage: ubuntu:22.04
           archType: amd64
           artifactName: aria2c_amd64
-      - build-aria2: # Build for amd32 arch
-          dockerImage: i386/ubuntu:18.04
-          archType: amd32
-          artifactName: aria2c_amd32
-      - build-aria2: # Build for mingw64 arch
-          dockerImage: ubuntu:22.04
-          archType: mingw64
-          artifactName: aria2c_mingw64.exe
-      - build-aria2: # Build for mingw32 arch
-          dockerImage: i386/ubuntu:18.04
-          archType: mingw32
-          artifactName: aria2c_mingw32.exe
+#      - build-aria2: # Build for amd32 arch
+#          dockerImage: i386/ubuntu:18.04
+#          archType: amd32
+#          artifactName: aria2c_amd32
+#      - build-aria2: # Build for mingw64 arch
+#          dockerImage: ubuntu:22.04
+#          archType: mingw64
+#          artifactName: aria2c_mingw64.exe
+#      - build-aria2: # Build for mingw32 arch
+#          dockerImage: i386/ubuntu:18.04
+#          archType: mingw32
+#          artifactName: aria2c_mingw32.exe
