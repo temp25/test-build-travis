@@ -23,6 +23,8 @@ if [ $? -ne 0 ]; then
   exit 2
 fi
 
+printenv
+
 if [ ! -f "${ARIA2_VERSION_FILE}" ]; then
   echo "ERROR: Aria2 version file not found"
   exit 3
